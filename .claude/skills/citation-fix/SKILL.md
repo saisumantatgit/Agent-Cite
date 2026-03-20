@@ -37,7 +37,7 @@ Do NOT activate this skill when:
 - `--audit-report path`: Path to a previous audit report (optional — will re-audit if not provided)
 - `--auto`: Apply fixes automatically without confirmation (default: interactive)
 - `--source-dirs paths`: Comma-separated directories to search for sources
-- `--web-verify`: When local search fails, attempt web verification via Google AI Mode as a fallback (requires google-ai-mode-skill installed)
+- `--web-verify`: When local search fails, attempt web verification via Google AI Mode as a fallback (requires patchright -- run pip install patchright)
 
 ## Workflow
 

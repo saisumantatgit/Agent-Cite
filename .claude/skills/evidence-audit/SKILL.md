@@ -52,7 +52,7 @@ If not found, use defaults:
 - UNCITED_INFERENCE → error (hard failure)
 - UNVERIFIED_NUMBER → warning (error if --strict)
 - UNSUPPORTED_ABSENCE → warning (error if --strict)
-- BROKEN_CITATION → warning (error if --strict)
+- BROKEN_CITATION → error (always fails)
 
 ### 3. Scan for Claims
 

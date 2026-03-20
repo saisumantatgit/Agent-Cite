@@ -7,7 +7,7 @@ Returns structured JSON with web-sourced citations.
 Usage:
     python scripts/web_verify.py --claim "Redis handles 100K ops/sec"
     python scripts/web_verify.py --claims-file violations.json
-    python scripts/web_verify.py --claim "React 19 uses a compiler" --headless
+    python scripts/web_verify.py --claim "React 19 uses a compiler" --no-headless
 
 Requirements:
     pip install patchright  (Chromium browser automation)
@@ -22,6 +22,7 @@ import sys
 import time
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote_plus
 
 
 # Browser profile persists across runs (avoids CAPTCHA on repeat queries)
@@ -79,7 +80,7 @@ def query_google_ai_mode(claim: str, headless: bool = True) -> dict:
     from patchright.sync_api import sync_playwright
 
     query = build_verification_query(claim)
-    url = GOOGLE_AI_URL.format(query=query.replace(" ", "+"))
+    url = GOOGLE_AI_URL.format(query=quote_plus(query))
 
     result = {
         "claim": claim,
@@ -145,8 +146,8 @@ def _wait_for_ai_response(page) -> dict | None:
                     if len(text) > 50:  # Got a real response
                         citations = _extract_citations(page)
                         return {"text": text, "citations": citations}
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Warning: {e}", file=sys.stderr)
         time.sleep(1)
 
     # Fallback: try to get any substantial text from the page
@@ -158,8 +159,8 @@ def _wait_for_ai_response(page) -> dict | None:
             ai_text = _extract_ai_section(body_text)
             if ai_text:
                 return {"text": ai_text, "citations": citations}
-    except Exception:
-        pass
+    except Exception as e:
+        print(f"Warning: {e}", file=sys.stderr)
 
     return None
 
@@ -220,7 +221,8 @@ def _extract_citations(page) -> list[dict]:
                         "title": title or f"Source {len(citations) + 1}",
                         "url": href,
                     })
-        except Exception:
+        except Exception as e:
+            print(f"Warning: {e}", file=sys.stderr)
             continue
 
     return citations[:10]  # Cap at 10 citations
@@ -294,12 +296,12 @@ def verify_claim(claim: str, headless: bool = True) -> dict:
         }
 
 
-def verify_claims_batch(claims: list[str], headless: bool = True) -> list[dict]:
+def verify_claims_batch(claims: list[str], headless: bool = True, delay: float = 2.0) -> list[dict]:
     """Verify multiple claims. Adds delay between queries to avoid rate limiting."""
     results = []
     for i, claim in enumerate(claims):
         if i > 0:
-            time.sleep(2)  # Rate limit: 2 seconds between queries
+            time.sleep(delay)
         results.append(verify_claim(claim, headless=headless))
     return results
 
@@ -311,10 +313,10 @@ def main():
     parser.add_argument("--claim", type=str, help="Single claim to verify")
     parser.add_argument("--claims-file", type=str,
                         help="JSON file with array of claim strings to verify")
-    parser.add_argument("--headless", action="store_true", default=True,
-                        help="Run browser in headless mode (default: true)")
     parser.add_argument("--no-headless", action="store_true",
                         help="Run browser with visible window (for debugging)")
+    parser.add_argument("--delay", type=float, default=2.0,
+                        help="Seconds to wait between queries in batch mode (default: 2.0)")
     parser.add_argument("--install-browser", action="store_true",
                         help="Install Chromium browser and exit")
     args = parser.parse_args()
@@ -342,10 +344,13 @@ def main():
         with open(args.claims_file) as f:
             claims = json.load(f)
         if not isinstance(claims, list):
-            print("Error: claims file must contain a JSON array of strings",
+            print("Error: claims-file must contain a JSON array of strings",
                   file=sys.stderr)
             sys.exit(1)
-        results = verify_claims_batch(claims, headless=headless)
+        if not all(isinstance(c, str) for c in claims):
+            print("Error: All claims must be strings", file=sys.stderr)
+            sys.exit(1)
+        results = verify_claims_batch(claims, headless=headless, delay=args.delay)
         print(json.dumps(results, indent=2))
 
 

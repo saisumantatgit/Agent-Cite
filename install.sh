@@ -29,6 +29,14 @@ fi
 echo ""
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
+# Pre-flight: warn if existing directories will be overwritten
+if [ -d "prompts" ]; then
+    echo "WARNING: Existing prompts/ directory will be overwritten"
+fi
+if [ -d "references" ]; then
+    echo "WARNING: Existing references/ directory will be overwritten"
+fi
+
 # Copy core prompts
 echo "Installing prompts..."
 cp -r "$SCRIPT_DIR/prompts" .

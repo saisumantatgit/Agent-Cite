@@ -33,3 +33,17 @@ The evidence-report skill produces project-wide metrics. To add new metrics:
 1. Define the metric in `.claude/skills/evidence-report/SKILL.md`
 2. Add it to the report template
 3. Update `templates/evidence-protocol.yaml` if thresholds are configurable
+
+## Submitting Changes
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Make your changes following the conventions above
+4. Commit with a descriptive message (`git commit -m "Add: description of change"`)
+5. Push to your fork (`git push origin feature/your-feature`)
+6. Open a Pull Request against `main`
+
+Pull requests should include:
+- Description of what changed and why
+- Any testing you performed
+- Reference to related issues (if applicable)

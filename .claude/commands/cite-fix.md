@@ -12,7 +12,7 @@ arguments:
     description: Comma-separated directories to search for sources
     required: false
   - name: --web-verify
-    description: Fall back to Google AI Mode for claims not found locally (requires google-ai-mode-skill)
+    description: Fall back to Google AI Mode for claims not found locally (requires patchright — run pip install patchright)
     required: false
 ---
 
