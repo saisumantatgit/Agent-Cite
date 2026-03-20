@@ -1,0 +1,50 @@
+# Evidence Protocol Configuration
+#
+# Place this file in your project root or .cite/ directory.
+# Agent-Cite will load it automatically when auditing.
+
+# Violation severities (override defaults)
+# Options: error (fails audit), warning (passes audit, fails with --strict), ignore
+severities:
+  UNCITED_INFERENCE: error
+  UNVERIFIED_NUMBER: warning
+  UNSUPPORTED_ABSENCE: warning
+  BROKEN_CITATION: error
+
+# Citation patterns recognized by the scanner
+# Add custom patterns specific to your project
+citation_patterns:
+  - "[source: {path}]"
+  - "[source: {path}:{line}]"
+  - "[source: {url}]"
+  - "[derived: {path}:{line}]"
+  - "[derived: {computation}]"
+  - "[searched: {paths}]"
+
+# Files to include in /cite-report batch audit
+include:
+  - "docs/**/*.md"
+  - "data/**/*.json"
+  - "*.md"
+
+# Files to exclude from auditing
+exclude:
+  - "CHANGELOG.md"
+  - "LICENSE"
+  - "node_modules/**"
+  - "dist/**"
+  - "build/**"
+  - ".git/**"
+
+# Directories to search for sources during /cite-fix
+source_dirs:
+  - "src/"
+  - "tests/"
+  - "docs/"
+  - "config/"
+
+# Project-level evidence health thresholds
+thresholds:
+  healthy: 90    # ≥90% coverage = HEALTHY
+  needs_work: 60 # 60-89% = NEEDS_WORK
+  critical: 0    # <60% = CRITICAL

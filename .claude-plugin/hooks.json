@@ -1,0 +1,8 @@
+{
+  "hooks": [
+    {
+      "type": "SessionStart",
+      "command": "echo '📑 Agent-Cite loaded. Commands: /cite-audit, /cite-fix, /cite-report'"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "agent-cite",
+  "description": "Agent-Cite — Evidence enforcement for AI agent workflows. Every factual claim must cite a source, every number must have a derivation, zero uncited inference. 3 commands, 3 agents. Cite it or it's opinion.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Sai Sumanth Battepati"
+  },
+  "homepage": "https://github.com/saisumantatgit/Agent-Cite",
+  "license": "MIT",
+  "keywords": [
+    "claude-code-plugin",
+    "evidence-enforcement",
+    "citation-checking",
+    "hallucination-prevention",
+    "evidence-protocol"
+  ]
+}

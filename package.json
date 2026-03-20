@@ -1,0 +1,19 @@
+{
+  "name": "agent-cite",
+  "version": "1.0.0",
+  "description": "Agent-Cite — Cite it or it's opinion. Evidence enforcement for AI agent workflows. Every claim, every source.",
+  "keywords": [
+    "claude-code-plugin",
+    "evidence-enforcement",
+    "citation-checking",
+    "hallucination-prevention",
+    "evidence-protocol",
+    "ai-verification"
+  ],
+  "author": "Sai Sumanth Battepati",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/saisumantatgit/Agent-Cite"
+  }
+}

@@ -1,0 +1,10 @@
+# Agent-Cite — Evidence Enforcement
+#
+# When producing output that asserts facts:
+# 1. Every factual claim → [source: file_path:line]
+# 2. Every number → [derived: source or computation]
+# 3. Every "not found" → [searched: paths checked]
+# 4. Zero uncited inference
+#
+# Violation types: UNCITED_INFERENCE (error), UNVERIFIED_NUMBER (warning),
+# UNSUPPORTED_ABSENCE (warning), BROKEN_CITATION (error)
