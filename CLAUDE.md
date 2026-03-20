@@ -20,6 +20,8 @@ Three command journeys, each with a skill and supporting agent:
 | `UNVERIFIED_NUMBER` | warning | Number without derivation |
 | `UNSUPPORTED_ABSENCE` | warning | Absence claim without search evidence |
 | `BROKEN_CITATION` | error | Citation to non-existent source |
+| `FALSE_ABSENCE` | critical | Agent claimed something doesn't exist, but it does |
+| `UNVERIFIABLE` | human decision | No source found anywhere — claim may be fabricated |
 
 ## Verdicts
 

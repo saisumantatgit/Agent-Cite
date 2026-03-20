@@ -214,6 +214,8 @@ thresholds:
 | [**Agent-Trace**](https://github.com/saisumantatgit/Agent-Trace) | Makes agents see before they edit | "See the ripple effect before it happens." |
 | [**Agent-Scribe**](https://github.com/saisumantatgit/Agent-Scribe) | Makes agents remember what they learned | "Nothing is lost." |
 | **Agent-Cite** | Makes agents prove what they claim | "Cite it or it's opinion." |
+| [**Agent-Drift**](https://github.com/saisumantatgit/Agent-Drift) | Intent drift detection and prevention | "Stay on target." |
+| [**Agent-Litmus**](https://github.com/saisumantatgit/Agent-Litmus) | Test quality validation | "Tests that actually test." |
 
 PROVE validates your thinking. Trace maps your blast radius. Scribe records your decisions. **Cite enforces your evidence.** Together: think rigorously, edit safely, remember everything, prove every claim.
 
