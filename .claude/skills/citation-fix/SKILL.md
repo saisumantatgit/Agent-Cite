@@ -156,11 +156,19 @@ Report the new verdict and any remaining violations.
 
 When `--web-verify` is enabled and a claim has no local source:
 
-1. The claim text is sent to Google AI Mode (via google-ai-mode-skill)
-2. Google synthesizes 20+ web sources and returns citations
-3. If a relevant source is found: proposed as an EXTERNAL tier citation
-4. EXTERNAL citations are always presented for human confirmation (even with --auto)
+1. Run `python scripts/web_verify.py --claim "<claim text>"`
+2. The script queries Google AI Mode via browser automation (Patchright)
+3. Google synthesizes 20+ web sources and returns citations
+4. If a relevant source is found: proposed as an EXTERNAL tier citation
+5. EXTERNAL citations are always presented for human confirmation (even with --auto)
+6. Confidence is assessed by term overlap between claim and web response (HIGH/MEDIUM/LOW)
 
-**Requires:** [google-ai-mode-skill](https://github.com/PleasePrompto/google-ai-mode-skill) installed in `~/.claude/skills/`
+For batch verification: `python scripts/web_verify.py --claims-file violations.json`
 
-**Without it:** `--web-verify` flag is ignored, violations fall through to UNVERIFIABLE as before. Agent-Cite works identically without this dependency.
+**Setup (one-time):**
+```bash
+pip install patchright
+python scripts/web_verify.py --install-browser
+```
+
+**Without setup:** `--web-verify` flag degrades gracefully — violations fall through to UNVERIFIABLE. Agent-Cite works identically without Patchright installed. Zero hard dependencies.
